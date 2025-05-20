@@ -5,13 +5,19 @@ from datetime import datetime
 from config import get_config
 import os
 
-instance_path = "/tmp/instance" if os.environ.get("VERCEL") else None
+app = Flask(__name__, 
+            instance_path=os.environ.get('INSTANCE_PATH', '/tmp/instance'))
 
-app = Flask(__name__, instance_path=instance_path)
-app.config.from_object(get_config())
+# Configure database
+if os.environ.get('VERCEL_REGION') or os.environ.get('VERCEL_ENV'):
+    # For Vercel: Use in-memory SQLite or environment variable for external DB
+    database_url = os.environ.get('DATABASE_URL', 'sqlite:///:memory:')
+else:
+    # For local development
+    database_url = os.environ.get('DATABASE_URL', 'sqlite:///dev.db')
 
-if os.environ.get("VERCEL"):
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
