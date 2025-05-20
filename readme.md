@@ -1,10 +1,10 @@
 # Flask To-Do Application
 
-![Flask](https://img.shields.io/badge/Flask-2.0.2-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.9-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-3.0.3-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
 ![SQLite](https://img.shields.io/badge/SQLite-3.35.5-blue.svg)
 
-A simple, elegant To-Do application built using Flask, a lightweight Python web framework. This application allows users to create, read, update, and delete tasks.
+A comprehensive, feature-rich To-Do application built using Flask, a lightweight Python web framework. This application allows users to create, organize, track, and manage tasks efficiently.
 
 ### [Live Demo](https://flask-todo-blue.vercel.app/)
 
@@ -18,12 +18,17 @@ A simple, elegant To-Do application built using Flask, a lightweight Python web 
 
 ## Features
 
-- **Add Tasks:** Users can add tasks with a title and description.
-- **Update Tasks:** Users can edit the title and description of existing tasks.
-- **Delete Tasks:** Users can delete tasks that are no longer needed.
-- **Search Tasks:** Users can search for tasks by title.
-- **Responsive Design:** The application is responsive and works well on all devices.
-- **Simple UI:** A clean and intuitive user interface for easy navigation.
+- **Task Management:** Create, update, and delete tasks with title, description, priority, and category
+- **Due Dates:** Set and track due dates for tasks
+- **Task Prioritization:** Assign High, Medium, or Low priority to tasks
+- **Categories:** Organize tasks by custom categories
+- **Task Status:** Track completed and active tasks
+- **Statistics Dashboard:** View task completion statistics and analytics
+- **Search Functionality:** Search for tasks by title or description
+- **Sorting & Filtering:** Sort and filter tasks by various criteria
+- **Subtasks:** Break down complex tasks into smaller subtasks
+- **Drag & Drop:** Reorder tasks with intuitive drag and drop functionality
+- **Responsive Design:** Works on desktop, tablet, and mobile devices
 
 ## Getting Started
 
@@ -76,31 +81,35 @@ To run this application on your local machine, follow the instructions in the [G
 
 ## Deployment
 
-This application is deployed on Vercel and can be accessed [here](https://flask-todo-blue.vercel.app/).
+### Deploying to Vercel
 
-To deploy this Flask application to Vercel:
+This application is configured for easy deployment on Vercel:
 
-1. **Create a `vercel.json` file** in your project root with the following content:
+1. Fork this repository to your GitHub account.
+2. Sign up for a [Vercel account](https://vercel.com/) (it's free and you can sign up with your GitHub account).
+3. Create a new project on Vercel and import your GitHub repository.
+4. Vercel will automatically detect the configuration from `vercel.json` and deploy the application.
+5. Your application will be live at `https://your-project-name.vercel.app`
 
-   ```json
-   {
-     "builds": [
-       { "src": "app.py", "use": "@vercel/python" }
-     ],
-     "routes": [
-       { "src": "/(.*)", "dest": "app.py" }
-     ]
-   }
-   ```
+#### Environment Variables (if needed)
 
-2. **Push the changes to your GitHub repository**.
+If you need to use a different database in production, set these environment variables in your Vercel project settings:
+- `POSTGRES_URL_SQL`: Your database connection URL
 
-3. **Connect your repository to Vercel** and deploy.
+### Deployment Note
+
+Vercel's free tier has a serverless architecture, which means:
+- Cold starts may occur if the application hasn't been used recently
+- Database connections will be reconnected for each request
+- The SQLite database in this project will be reset on each deployment (use a persistent database like PostgreSQL for production)
 
 ## Technologies Used
 
-- **Flask**: A lightweight WSGI web application framework in Python.
-- **SQLite**: A C library that provides a lightweight, disk-based database.
-- **HTML/CSS**: For building the front-end of the application.
-- **Jinja2**: A templating engine for Python used with Flask.
-- **SQLAlchemy**: SQL toolkit and Object-Relational Mapping (ORM) library for Python.
+- **Flask**: A lightweight WSGI web application framework in Python
+- **SQLAlchemy**: SQL toolkit and Object-Relational Mapping (ORM) for Python
+- **Flask-Migrate**: Database migration handling for Flask/SQLAlchemy
+- **Bootstrap 5**: Front-end framework for responsive design
+- **Chart.js**: JavaScript library for data visualization
+- **SQLite**: Lightweight disk-based database (development)
+- **PostgreSQL**: Advanced open-source database (production option)
+- **Vercel**: Hosting and serverless deployment platform
