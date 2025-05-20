@@ -22,9 +22,6 @@ if os.environ.get('VERCEL_REGION'):
 # Initialize SQLAlchemy with the app
 db = SQLAlchemy(app)
 
-app = Flask(__name__)
-app.config.from_object(get_config())
-db = SQLAlchemy(app)
 
 class Todo(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
@@ -115,7 +112,9 @@ def hello_world():
     if filter_due == 'overdue':
         query = query.filter(Todo.due_date < today, Todo.due_date != None)
     elif filter_due == 'today':
-        tomorrow = today.replace(day=today.day + 1)
+        from datetime import timedelta
+        tomorrow = today + timedelta(days=1)
+
         query = query.filter(Todo.due_date >= today, Todo.due_date < tomorrow)
     elif filter_due == 'upcoming':
         query = query.filter(Todo.due_date >= today)
