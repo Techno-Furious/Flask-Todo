@@ -3,13 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
 import os
-
-
-POSTGRES_URL_SQL=os.environ.get('POSTGRES_URL_SQL', 'sqlite:///todos.db')
+from config import get_config
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRES_URL_SQL
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object(get_config())
 db = SQLAlchemy(app)
 
 class Todo(db.Model):
