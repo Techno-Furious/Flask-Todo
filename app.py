@@ -2,8 +2,25 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
-import os
 from config import get_config
+import os
+
+# When configuring the app
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Add this critical line to prevent the error
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'connect_args': {'check_same_thread': False}
+}
+
+# If needed for Vercel, specify in-memory SQLite
+if os.environ.get('VERCEL_REGION'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+
+# Initialize SQLAlchemy with the app
+db = SQLAlchemy(app)
 
 app = Flask(__name__)
 app.config.from_object(get_config())

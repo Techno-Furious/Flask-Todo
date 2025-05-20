@@ -1,6 +1,11 @@
-from app import app
+import os
+from app import app as flask_app
 
-# This file ensures that Vercel can properly import the Flask app
-# Vercel will automatically use this file as the entry point
+# Add memory-only db initialization if needed
+if os.environ.get('VERCEL_REGION'):
+    from app import db
+    with flask_app.app_context():
+        db.create_all()
 
-# No need to run app.run() here - Vercel handles that
+# Export the Flask app for Vercel
+app = flask_app
