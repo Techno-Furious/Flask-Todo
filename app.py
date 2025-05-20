@@ -5,22 +5,17 @@ from datetime import datetime
 from config import get_config
 import os
 
-# When configuring the app
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+instance_path = "/tmp/instance" if os.environ.get("VERCEL") else None
 
-# Add this critical line to prevent the error
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    'connect_args': {'check_same_thread': False}
-}
+app = Flask(__name__, instance_path=instance_path)
+app.config.from_object(get_config())
 
-# If needed for Vercel, specify in-memory SQLite
-if os.environ.get('VERCEL_REGION'):
+if os.environ.get("VERCEL"):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 
-# Initialize SQLAlchemy with the app
 db = SQLAlchemy(app)
+
+
 
 
 class Todo(db.Model):
