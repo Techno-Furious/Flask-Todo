@@ -1,130 +1,170 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+  <head>    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TODO App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom styles for improved mobile experience -->
+    <style>
+      @media (max-width: 767px) {
+        .table-responsive {
+          font-size: 0.9rem;
+        }
+        .btn-sm {
+          padding: 0.2rem 0.4rem;
+          font-size: 0.75rem;
+        }
+        .container {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+      /* Add smooth transitions */
+      .btn, .form-control, .badge {
+        transition: all 0.2s;
+      }
+      /* Improve touch targets for mobile */
+      @media (max-width: 576px) {
+        .btn-group .btn, .form-check-input {
+          min-height: 38px;
+          min-width: 38px;
+        }
+      }
+    </style>
   </head>
-  <body>
-
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <body>    <!-- Mobile-friendly navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Home</a>
+          <a class="navbar-brand d-flex align-items-center" href="/">
+            <span class="me-2">📝</span>Todo App
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="/about" target="_blank">About</a>
-            </li>
-            
+                <a class="nav-link" href="/">
+                  <i class="bi bi-house-door"></i> Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about" target="_blank">
+                  <i class="bi bi-info-circle"></i> About
+                </a>
+              </li>
             </ul>
-            <form action="/search" class="d-flex" method="GET">
-              <input class="form-control me-2" type="search" placeholder="Search Todo" aria-label="Search" name="search_str">
-              <button class="btn btn-outline-dark" type="submit">Search</button>
+            <form action="/search" class="d-flex mt-3 mt-lg-0 w-100 w-lg-auto" method="GET">
+              <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search Todo" aria-label="Search" name="search_str">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+              </div>
             </form>
-            
           </div>
         </div>
-      </nav>      <!-- Forms -->
-      <div class="container my-4">
-        <h2>Add New Task</h2>
-        <form action="/" method="POST">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" name="title" id="title" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="desc" class="form-label">Description</label>
-              <input type="text" class="form-control" name="desc" id="desc">
-            </div>
+      </nav><!-- Forms -->      <div class="container my-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-light">
+            <h5 class="card-title mb-0">Add New Task</h5>
           </div>
-          
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label for="priority" class="form-label">Priority</label>
-              <select class="form-select" name="priority" id="priority">
-                <option value="High">High</option>
-                <option value="Medium" selected>Medium</option>
-                <option value="Low">Low</option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="category" class="form-label">Category</label>
-              <input type="text" class="form-control" name="category" id="category" value="General" list="category-list">
-              <datalist id="category-list">
-                <option value="Work">
-                <option value="Personal">
-                <option value="Shopping">
-                <option value="General">
-                <option value="Study">
-              </datalist>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="due_date" class="form-label">Due Date</label>
-              <input type="date" class="form-control" name="due_date" id="due_date">
-            </div>
+          <div class="card-body">
+            <form action="/" method="POST">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" name="title" id="title" required>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="desc" class="form-label">Description</label>
+                  <input type="text" class="form-control" name="desc" id="desc">
+                </div>
+              </div>
+              
+              <div class="row g-3 mt-1">
+                <div class="col-4">
+                  <label for="priority" class="form-label">Priority</label>
+                  <select class="form-select" name="priority" id="priority">
+                    <option value="High">High</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+                <div class="col-8 col-md-4">
+                  <label for="category" class="form-label">Category</label>
+                  <input type="text" class="form-control" name="category" id="category" value="General" list="category-list">
+                  <datalist id="category-list">
+                    <option value="Work">
+                    <option value="Personal">
+                    <option value="Shopping">
+                    <option value="General">
+                    <option value="Study">
+                  </datalist>
+                </div>
+                <div class="col-12 col-md-4">
+                  <label for="due_date" class="form-label">Due Date</label>
+                  <input type="date" class="form-control" name="due_date" id="due_date">
+                </div>
+              </div>
+              
+              <div class="mt-3">
+                <button type="submit" class="btn btn-primary w-100 w-md-auto">Add Task</button>
+              </div>
+            </form>
           </div>
-          
-          <button type="submit" class="btn btn-primary">Add Task</button>
-        </form>
-      </div>
-        <!-- Task Statistics Dashboard -->
+        </div>
+      </div>        <!-- Task Statistics Dashboard - Mobile Responsive -->
       <div class="container my-3">
-        <div class="card mb-3">
+        <div class="card mb-3 shadow-sm">
           <div class="card-body">
             <h5 class="card-title">Task Dashboard</h5>
             <div class="row g-3">
-              <div class="col-md-3 col-sm-6">
-                <div class="border rounded p-3 text-center bg-light">
-                  <h3>{{ stats.total }}</h3>
-                  <p class="mb-0">Total Tasks</p>
+              <div class="col-6 col-sm-6 col-md-3">
+                <div class="border rounded p-2 p-md-3 text-center bg-light h-100">
+                  <h3 class="h4 h3-md">{{ stats.total }}</h3>
+                  <p class="mb-0 small">Total Tasks</p>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="border rounded p-3 text-center bg-success bg-opacity-25">
-                  <h3>{{ stats.completed }}</h3>
-                  <p class="mb-0">Completed</p>
+              <div class="col-6 col-sm-6 col-md-3">
+                <div class="border rounded p-2 p-md-3 text-center bg-success bg-opacity-25 h-100">
+                  <h3 class="h4 h3-md">{{ stats.completed }}</h3>
+                  <p class="mb-0 small">Completed</p>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="border rounded p-3 text-center bg-warning bg-opacity-25">
-                  <h3>{{ stats.today }}</h3>
-                  <p class="mb-0">Due Today</p>
+              <div class="col-6 col-sm-6 col-md-3">
+                <div class="border rounded p-2 p-md-3 text-center bg-warning bg-opacity-25 h-100">
+                  <h3 class="h4 h3-md">{{ stats.today }}</h3>
+                  <p class="mb-0 small">Due Today</p>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="border rounded p-3 text-center bg-danger bg-opacity-25">
-                  <h3>{{ stats.overdue }}</h3>
-                  <p class="mb-0">Overdue</p>
+              <div class="col-6 col-sm-6 col-md-3">
+                <div class="border rounded p-2 p-md-3 text-center bg-danger bg-opacity-25 h-100">
+                  <h3 class="h4 h3-md">{{ stats.overdue }}</h3>
+                  <p class="mb-0 small">Overdue</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
-        <!-- Sort and Filter Controls -->
+          <!-- Sort and Filter Controls - Mobile Responsive -->
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Sort & Filter</h5>
             <div class="row g-2">
-              <div class="col-md-6">
-                <div class="btn-group" role="group" aria-label="Sort options">
-                  <a href="/?sort=position" class="btn btn-outline-secondary">Default Order</a>
-                  <a href="/?sort=priority" class="btn btn-outline-secondary">By Priority</a>
-                  <a href="/?sort=due_date" class="btn btn-outline-secondary">By Due Date</a>
-                  <a href="/?sort=category" class="btn btn-outline-secondary">By Category</a>
+              <div class="col-lg-6 mb-2">
+                <label class="d-block d-md-none mb-2">Sort By:</label>
+                <div class="btn-group flex-wrap w-100" role="group" aria-label="Sort options">
+                  <a href="/?sort=position" class="btn btn-sm btn-outline-secondary">Default</a>
+                  <a href="/?sort=priority" class="btn btn-sm btn-outline-secondary">Priority</a>
+                  <a href="/?sort=due_date" class="btn btn-sm btn-outline-secondary">Due Date</a>
+                  <a href="/?sort=category" class="btn btn-sm btn-outline-secondary">Category</a>
                 </div>
               </div>
-              <div class="col-md-6 text-md-end mt-2 mt-md-0">
-                <div class="btn-group" role="group">
-                  <a href="/categories" class="btn btn-outline-secondary">View Categories</a>
-                  <div class="dropdown d-inline-block ms-2">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="col-lg-6 text-md-end">
+                <div class="d-flex flex-wrap gap-2 justify-content-start justify-content-md-end">
+                  <a href="/categories" class="btn btn-sm btn-outline-secondary">View Categories</a>
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Filter Priority
                     </button>
                     <ul class="dropdown-menu">
@@ -155,115 +195,133 @@
         </div>
         {% endif %}
 
-        <form action="/bulk_action" method="POST">
-          <div class="mb-3">
-            <div class="row g-3 align-items-center">
-              <div class="col-auto">
-                <label class="form-label fw-bold">Bulk Actions:</label>
-              </div>
-              <div class="col-auto">
-                <select class="form-select" name="bulk_action">
-                  <option value="mark_complete">Mark as Complete</option>
-                  <option value="mark_incomplete">Mark as Incomplete</option>
-                  <option value="delete">Delete Selected</option>
-                  <option value="set_priority">Set Priority</option>
-                  <option value="set_category">Set Category</option>
-                </select>
-              </div>
-              <div class="col-auto bulk-option priority-option" style="display:none;">
-                <select class="form-select" name="priority">
-                  <option value="High">High</option>
-                  <option value="Medium" selected>Medium</option>
-                  <option value="Low">Low</option>
-                </select>
-              </div>
-              <div class="col-auto bulk-option category-option" style="display:none;">
-                <input type="text" class="form-control" name="category" placeholder="Category" value="General" list="category-list">
-              </div>
-              <div class="col-auto">
-                <button type="submit" class="btn btn-primary">Apply</button>
-              </div>
-              <div class="col-auto">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="select-all">
-                  <label class="form-check-label" for="select-all">Select All</label>
+        <form action="/bulk_action" method="POST">          <div class="mb-3">
+            <div class="card card-body mb-3">
+              <h6 class="card-subtitle mb-2 text-muted">Bulk Actions</h6>
+              <div class="row g-2 align-items-center">
+                <div class="col-12 col-sm-auto mb-2 mb-sm-0">
+                  <select class="form-select form-select-sm" name="bulk_action">
+                    <option value="mark_complete">Mark as Complete</option>
+                    <option value="mark_incomplete">Mark as Incomplete</option>
+                    <option value="delete">Delete Selected</option>
+                    <option value="set_priority">Set Priority</option>
+                    <option value="set_category">Set Category</option>
+                  </select>
+                </div>
+                <div class="col-6 col-sm-auto bulk-option priority-option" style="display:none;">
+                  <select class="form-select form-select-sm" name="priority">
+                    <option value="High">High</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+                <div class="col-6 col-sm-auto bulk-option category-option" style="display:none;">
+                  <input type="text" class="form-control form-control-sm" name="category" placeholder="Category" value="General" list="category-list">
+                </div>
+                <div class="col-6 col-sm-auto mb-2 mb-sm-0">
+                  <button type="submit" class="btn btn-sm btn-primary w-100">Apply</button>
+                </div>
+                <div class="col-6 col-sm-auto">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="select-all">
+                    <label class="form-check-label" for="select-all">Select All</label>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-        <table class="table table-hover">
+          </div>        <div class="table-responsive">
+          <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col" style="width: 3%;">
+                <th scope="col" class="text-center" style="width: 3%;">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="header-checkbox">
                   </div>
                 </th>
-                <th scope="col" style="width: 5%;">Order</th>
+                <th scope="col" style="width: 5%;" class="d-none d-md-table-cell">Order</th>
                 <th scope="col" style="width: 18%;">Title</th>
-                <th scope="col" style="width: 18%;">Description</th>
+                <th scope="col" style="width: 18%;" class="d-none d-lg-table-cell">Description</th>
                 <th scope="col" style="width: 10%;">Priority</th>
-                <th scope="col" style="width: 10%;">Category</th>
-                <th scope="col" style="width: 10%;">Due Date</th>
-                <th scope="col" style="width: 15%;">Created</th>
+                <th scope="col" style="width: 10%;" class="d-none d-md-table-cell">Category</th>
+                <th scope="col" style="width: 10%;" class="d-none d-sm-table-cell">Due Date</th>
+                <th scope="col" style="width: 15%;" class="d-none d-lg-table-cell">Created</th>
                 <th scope="col" style="width: 10%;">Actions</th>
               </tr>
             </thead>
             <tbody>
-            {% for todo in allTodo %}
-            <tr class="{% if todo.completed %}table-success{% endif %} {% if todo.due_date and todo.due_date < now and not todo.completed %}table-danger{% endif %}">
-              <td class="align-middle">
+            {% for todo in allTodo %}            <tr class="{% if todo.completed %}table-success{% endif %} {% if todo.due_date and todo.due_date < now and not todo.completed %}table-danger{% endif %}">
+              <td class="align-middle text-center">
                 <div class="form-check">
                   <input class="form-check-input task-checkbox" type="checkbox" name="selected_tasks" value="{{ todo.sno }}">
                 </div>
               </td>
-              <th scope="row" class="align-middle">
+              <th scope="row" class="align-middle d-none d-md-table-cell">
                 <div class="btn-group-vertical btn-group-sm">
                   <a href="/move/{{todo.sno}}/up" class="btn btn-outline-secondary btn-sm">▲</a>
                   <span class="badge bg-secondary">{{todo.position}}</span>
                   <a href="/move/{{todo.sno}}/down" class="btn btn-outline-secondary btn-sm">▼</a>
                 </div>
               </th>
-              <td class="align-middle {% if todo.completed %}text-decoration-line-through{% endif %}">{{todo.title}}</td>
-              <td class="align-middle">{{todo.desc}}</td>
-              <td class="align-middle">
+              <td class="align-middle {% if todo.completed %}text-decoration-line-through{% endif %}">
+                {{todo.title}}
+                <!-- Mobile-only category and due date badge -->
+                <div class="d-md-none mt-1">
+                  <span class="badge {% if todo.priority == 'High' %}bg-danger{% elif todo.priority == 'Medium' %}bg-warning{% else %}bg-info{% endif %} me-1">
+                    {{todo.priority}}
+                  </span>
+                  <span class="badge bg-secondary me-1 d-md-none">{{todo.category}}</span>
+                  {% if todo.due_date %}
+                    <span class="badge bg-light text-dark border d-sm-none">{{todo.due_date.strftime('%Y-%m-%d')}}</span>
+                  {% endif %}
+                </div>
+              </td>
+              <td class="align-middle d-none d-lg-table-cell">{{todo.desc}}</td>
+              <td class="align-middle d-none d-sm-table-cell">
                 <span class="badge {% if todo.priority == 'High' %}bg-danger{% elif todo.priority == 'Medium' %}bg-warning{% else %}bg-info{% endif %}">
                   {{todo.priority}}
                 </span>
               </td>
-              <td class="align-middle">
+              <td class="align-middle d-none d-md-table-cell">
                 <a href="/filter/{{todo.category}}" class="badge bg-secondary text-decoration-none">
                   {{todo.category}}
                 </a>
               </td>
-              <td class="align-middle">{{todo.due_date.strftime('%Y-%m-%d') if todo.due_date else 'Not set'}}</td>
-              <td class="align-middle">{{todo.date.strftime('%Y-%m-%d %H:%M')}}</td>
-              <td class="align-middle">
-                <div class="btn-group" role="group">
+              <td class="align-middle d-none d-sm-table-cell">{{todo.due_date.strftime('%Y-%m-%d') if todo.due_date else 'Not set'}}</td>
+              <td class="align-middle d-none d-lg-table-cell">{{todo.date.strftime('%Y-%m-%d %H:%M')}}</td>              <td class="align-middle">
+                <div class="d-flex gap-1 justify-content-center">
                   <a href="/toggle_complete/{{todo.sno}}" class="btn btn-outline-success btn-sm" title="Mark {% if todo.completed %}incomplete{% else %}complete{% endif %}">
-                    {% if todo.completed %}✓{% else %}□{% endif %}
+                    <i class="bi {% if todo.completed %}bi-check-square{% else %}bi-square{% endif %}"></i>
                   </a>
                   <a href="/update/{{todo.sno}}" class="btn btn-outline-primary btn-sm" title="Edit">
-                    ✎
+                    <i class="bi bi-pencil"></i>
                   </a>
                   <a href="/delete/{{todo.sno}}" class="btn btn-outline-danger btn-sm" title="Delete" onclick="return confirm('Are you sure you want to delete this task?');">
-                    ✕
+                    <i class="bi bi-trash"></i>
                   </a>
                 </div>
               </td>
             </tr>
             {% endfor %}
-            </tbody>
-          </table>
+            </tbody>          </table>
         </form>
       {% endif %}
 
+      </div>
       
-        
-        </div>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <!-- Mobile floating action button -->
+      <div class="d-block d-md-none">
+        <a href="#title" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4 shadow" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+          <i class="bi bi-plus-lg fs-3"></i>
+        </a>
+      </div>
+
+      <!-- Scroll to top button -->
+      <button id="scrollToTop" class="btn btn-secondary rounded-circle position-fixed bottom-0 start-0 m-4 d-none d-md-flex shadow" style="width: 45px; height: 45px; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;">
+        <i class="bi bi-arrow-up"></i>
+      </button>
     
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script>
       // Bulk action handling
       document.addEventListener('DOMContentLoaded', function() {
         // Select all checkbox functionality
@@ -307,6 +365,70 @@
               document.querySelector('.category-option').style.display = 'block';
             }
           });
+        }
+        
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        if (scrollToTopBtn) {
+          window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+              scrollToTopBtn.style.opacity = '1';
+            } else {
+              scrollToTopBtn.style.opacity = '0';
+            }
+          });
+          
+          scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+          });
+        }
+        
+        // Enhance checkbox size on touch devices for better tap targets
+        if ('ontouchstart' in window) {
+          const checkboxes = document.querySelectorAll('.form-check-input');
+          checkboxes.forEach(checkbox => {
+            checkbox.style.width = '24px';
+            checkbox.style.height = '24px';
+          });
+        }
+        
+        // Add swipe gestures for mobile (simple implementation)
+        if ('ontouchstart' in window) {
+          let touchStartX = 0;
+          let touchEndX = 0;
+          
+          const rows = document.querySelectorAll('tbody tr');
+          rows.forEach(row => {
+            row.addEventListener('touchstart', function(e) {
+              touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            row.addEventListener('touchend', function(e) {
+              touchEndX = e.changedTouches[0].screenX;
+              handleSwipe(row);
+            });
+          });
+          
+          function handleSwipe(row) {
+            const todoId = row.querySelector('.task-checkbox')?.value;
+            if (!todoId) return;
+            
+            const swipeThreshold = 100;
+            const swipeDistance = touchEndX - touchStartX;
+            
+            // Swipe right = mark complete
+            if (swipeDistance > swipeThreshold) {
+              const completeBtn = row.querySelector('a[href^="/toggle_complete"]');
+              if (completeBtn) completeBtn.click();
+            } 
+            // Swipe left = delete (with confirmation)
+            else if (swipeDistance < -swipeThreshold) {
+              const deleteBtn = row.querySelector('a[href^="/delete"]');
+              if (deleteBtn && confirm('Are you sure you want to delete this task?')) {
+                window.location.href = deleteBtn.href;
+              }
+            }
+          }
         }
         
         // Keyboard shortcuts
@@ -369,16 +491,52 @@
           // "/" for showing keyboard shortcut help
           if (e.key === '/') {
             e.preventDefault();
-            alert("Keyboard Shortcuts:\n" +
-                  "n: New task (focus on title field)\n" +
-                  "f: Filter/search (focus on search box)\n" +
-                  "h: High priority filter\n" +
-                  "m: Medium priority filter\n" +
-                  "l: Low priority filter\n" +
-                  "a: All tasks (clear filters)\n" +
-                  "c: Show completed tasks\n" +
-                  "p: Show pending/active tasks\n" +
-                  "/: Show this help");
+            
+            // Create a more mobile-friendly modal for shortcuts
+            const modalHtml = `
+              <div class="modal fade" id="shortcutsModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Keyboard Shortcuts</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <table class="table table-sm table-striped">
+                        <tr><td><kbd>n</kbd></td><td>New task (focus on title field)</td></tr>
+                        <tr><td><kbd>f</kbd></td><td>Filter/search (focus on search box)</td></tr>
+                        <tr><td><kbd>h</kbd></td><td>High priority filter</td></tr>
+                        <tr><td><kbd>m</kbd></td><td>Medium priority filter</td></tr>
+                        <tr><td><kbd>l</kbd></td><td>Low priority filter</td></tr>
+                        <tr><td><kbd>a</kbd></td><td>All tasks (clear filters)</td></tr>
+                        <tr><td><kbd>c</kbd></td><td>Show completed tasks</td></tr>
+                        <tr><td><kbd>p</kbd></td><td>Show pending tasks</td></tr>
+                        <tr><td><kbd>/</kbd></td><td>Show this help</td></tr>
+                      </table>
+                      <div class="mt-3">
+                        <strong>Mobile Features:</strong>
+                        <ul class="mb-0">
+                          <li>Swipe right on a task to toggle complete</li>
+                          <li>Swipe left to delete a task</li>
+                          <li>Use the floating "+" button to add new tasks</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            
+            // Add modal to body if it doesn't exist
+            if (!document.getElementById('shortcutsModal')) {
+              const div = document.createElement('div');
+              div.innerHTML = modalHtml;
+              document.body.appendChild(div);
+            }
+            
+            // Show the modal
+            const shortcutsModal = new bootstrap.Modal(document.getElementById('shortcutsModal'));
+            shortcutsModal.show();
           }
         });
       });
